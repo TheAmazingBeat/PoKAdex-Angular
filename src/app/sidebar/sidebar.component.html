@@ -1,0 +1,100 @@
+<!-- <div class="collapse collapse-horizontal border-end" id="sidebar">
+  <div class="d-flex flex-column">
+    <div class="sidebar-header bg-light border-bottom">Pokadex</div>
+    <ul class="list-group mb-auto">
+      <a
+        routerLinkActive="active"
+        [routerLink]="['pokadex']"
+        class="list-group-item list-group-item-light"
+      >
+        Pokadex
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['league']"
+        class="list-group-item"
+      >
+        League
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['locations']"
+        class="list-group-item"
+      >
+        Locations
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['items']"
+        class="list-group-item"
+      >
+        Items
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['moves']"
+        class="list-group-item"
+      >
+        Moves
+      </a>
+    </ul>
+  </div>
+</div> -->
+
+<div id="sidebar" class="offcanvas offcanvas-start">
+  <div class="offcanvas-header text-bg-danger">
+    <h5 class="offcanvas-title">PoKAdex</h5>
+    <button
+      type="button"
+      class="btn"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    >
+    <i class="bi-x-lg" style="color: white;"></i>
+  </button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group mb-auto">
+      <a
+        routerLinkActive="active"
+        [routerLink]="['pokadex']"
+        class="list-group-item"
+      >
+        <i class="bi-collection"></i>
+        <span>Pokadex</span>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['league']"
+        class="list-group-item"
+      >
+        <i class="bi-diagram-2"></i>
+        <span>League</span>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['locations']"
+        class="list-group-item"
+      >
+        <i class="bi-geo-alt"></i>
+        <span>Locations</span>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['items']"
+        class="list-group-item"
+      >
+        <i class="bi-disc"></i>
+        <span>Items</span>
+      </a>
+      <a
+        routerLinkActive="active"
+        [routerLink]="['moves']"
+        class="list-group-item"
+      >
+        <i class="bi-lightning-charge"></i>
+        <span>Moves</span>
+      </a>
+    </ul>
+  </div>
+</div>

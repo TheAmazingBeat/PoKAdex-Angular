@@ -1,0 +1,40 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/offcanvas";
+
+#sidebar {
+  width: 15rem;
+
+  .offcanvas-header {
+    background-color: $red-600 !important;
+  }
+
+  .offcanvas-body {
+    padding: 0;
+
+    ul.list-group {
+      background-color: inherit;
+      border-radius: 0;
+
+      .list-group-item {
+        padding: 1.15rem 1rem;
+
+        &:hover {
+          color: $red-500;
+        }
+
+        &:active,
+        &.active {
+          color: $white;
+          background-color: $red-500;
+          border-color: $red-500;
+        }
+      }
+    }
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+}
