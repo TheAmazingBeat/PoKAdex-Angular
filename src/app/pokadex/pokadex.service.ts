@@ -14,17 +14,19 @@ export class PokadexService {
 
   constructor() {}
 
-  async getPokedex(start: number, end: number): Promise<Pokemon[]> {
+  async getPokedex(start: number, end: number, pokedexID: any): Promise<Pokemon[]> {
     const api = new GameClient();
+    // console.log(await api.getPokedexById(Pokedexes.HOENN));
+    
     return await api
-      .getPokedexById(Pokedexes.NATIONAL)
+      .getPokedexById(pokedexID)
       .then(async (data) => {
         // Process Data Entries
         this.numOfPokemons = data.pokemon_entries.length;
         const entries: PokemonEntry[] = data.pokemon_entries.slice(start, end);
         return await Promise.all(
           entries.map(async (entry) => {
-            const id = entry.entry_number;
+            const id = entry.pokemon_species.name;
             return await this.getPokemon(id);
           })
         );
@@ -34,10 +36,10 @@ export class PokadexService {
       });
   }
 
-  async getPokemon(id: number): Promise<Pokemon> {
+  async getPokemon(id: string): Promise<Pokemon> {
     const api = new PokemonClient();
     return await api
-      .getPokemonById(id)
+      .getPokemonByName(id)
       .then((data) => {
         return data;
       })

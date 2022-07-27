@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  NavigationStart,
-  Router,
-} from '@angular/router';
-import { Pokemon } from 'pokenode-ts';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Pokedexes, Pokemon } from 'pokenode-ts';
 import { PokadexService } from './pokadex.service';
 
 @Component({
@@ -31,8 +25,10 @@ export class PokadexComponent implements OnInit {
     this.pokemons = [];
     this.numOfPages = [];
 
+    // Detect changes in route params to change the page
     this.route.params.subscribe((params) => {
       this.currentPageNumber = +params['pageNumber'];
+      if(this.currentPageNumber) this.changePage(this.currentPageNumber)
     });
     console.log(this.currentPageNumber);
 
@@ -41,7 +37,7 @@ export class PokadexComponent implements OnInit {
   }
 
   async displayPokedex(start: number, end: number) {
-    this.pokemons = await this.pokadex.getPokedex(start, end);
+    this.pokemons = await this.pokadex.getPokedex(start, end, Pokedexes.NATIONAL);
   }
 
   getNumOfPages() {
