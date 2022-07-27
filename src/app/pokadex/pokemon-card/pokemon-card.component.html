@@ -1,1 +1,16 @@
-<p>pokemon-card works!</p>
+<!-- <p>pokemon-card works!</p> -->
+<button class="pokemon-card w-100" (click)="logPokemon()">
+  <div class="card text-center w-100">
+    <div class="card-header">
+      <p class="pokemon-id my-1">#{{ pokemon.id }}</p>
+      <h4 class="pokemon-name">{{ pokemon.name }}</h4>
+    </div>
+    <div class="card-body">
+      <img [src]="pokemonImgPath" alt="" class="pokemon-image" loading="lazy" />
+
+      <div class="pokemon-types">
+        <p>This is a pokemon card</p>
+      </div>
+    </div>
+  </div>
+</button>

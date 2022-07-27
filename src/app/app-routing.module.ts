@@ -12,7 +12,11 @@ const routes: Routes = [
     path: 'pokadex',
     component: PokadexComponent,
     children: [
-      // { path: 'childpath', component: ChildComponent }
+      {
+        path: ':pageNumber',
+        pathMatch: 'full',
+        component: PokadexComponent,
+      }
     ],
   },
   { path: 'locations', component: LocationsComponent },
