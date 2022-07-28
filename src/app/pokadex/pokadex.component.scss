@@ -33,6 +33,9 @@
 .page-item {
   .page-link {
     color: $red;
+    &:hover {
+      cursor: pointer;
+    }
     &:focus {
       box-shadow: rgba($color: $red, $alpha: 0.25) 0 0 0 4px;
     }

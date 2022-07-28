@@ -11,13 +11,6 @@ const routes: Routes = [
   {
     path: 'pokadex',
     component: PokadexComponent,
-    children: [
-      {
-        path: ':pageNumber',
-        pathMatch: 'full',
-        component: PokadexComponent,
-      }
-    ],
   },
   { path: 'locations', component: LocationsComponent },
   { path: 'league', component: LeagueComponent },

@@ -6,12 +6,18 @@
       <h4 class="pokemon-name">{{ pokemon.name }}</h4>
     </div>
     <div class="card-body">
-      <img [src]="pokemonImgPath" alt="" class="pokemon-image mb-2" loading="lazy" />
+      <img
+        [src]="pokemonImgPath"
+        [alt]="'Picture of ' + pokemon.name"
+        loading="lazy"
+        class="pokemon-image mb-2"
+      />
 
       <div class="pokemon-types container-fluid">
-        <!-- <p>This is a pokemon card</p> -->
-        <app-type-badge *ngFor="let type of pokemon.types" [type]="type"></app-type-badge>
-        <!-- <app-type-badge></app-type-badge> -->
+        <app-type-badge
+          *ngFor="let type of pokemon.types"
+          [type]="type"
+        ></app-type-badge>
       </div>
     </div>
   </div>
