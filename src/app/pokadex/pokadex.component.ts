@@ -1,7 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Pokedexes, Pokemon, PokemonSpecies } from 'pokenode-ts';
+import { Subscription } from 'rxjs';
+import { GameService } from '../shared/game.service';
 import { PokadexService } from './pokadex.service';
+import { PokemonModel } from './pokemon.model';
 
 @Component({
   selector: 'app-pokadex',
@@ -9,38 +19,50 @@ import { PokadexService } from './pokadex.service';
   styleUrls: ['./pokadex.component.scss'],
 })
 export class PokadexComponent implements OnInit, OnDestroy {
-  pageOfPokemons: Pokemon[] = [];
-  pokemons: Pokemon[] = [];
+  pageOfPokemons: PokemonModel[] = [];
+  pokemons: PokemonModel[] = [];
   start: number = 0;
   end: number = 100;
   numOfPages: number[];
   currentPageNumber: number;
+  gameSubscription: Subscription;
+  // prevPokedex: number[];
 
-  constructor(private pokadex: PokadexService, private route: ActivatedRoute) {}
+  constructor(
+    private pokadex: PokadexService,
+    private gameService: GameService
+  ) {
+    this.numOfPages = [];
+    this.currentPageNumber = 1;
+  }
 
   async ngOnInit() {
-    await this.callAPI();
+    this.gameSubscription = this.gameService.gameSelect.subscribe(
+      async (selectedValue: number[]) => {
+        await this.callAPI(selectedValue);
+        console.log(selectedValue);
+      }
+    );
 
-    this.numOfPages = [];
+    await this.callAPI([1]);
     this.displayPokedex(this.start, this.end);
     this.getNumOfPages();
-    this.currentPageNumber = 1;
   }
 
   ngOnDestroy(): void {
     this.pokadex.storePokedex();
+    this.gameSubscription.unsubscribe();
   }
 
-  async callAPI(): Promise<void> {
+  async callAPI(pokedexID: number[]): Promise<void> {
+    // const prevArray = JSON.stringify(this.prevPokedex);
+    // const chosenArray = JSON.stringify(pokedexID);
+    // const compareGameSelection: boolean = prevArray === chosenArray;
+    
     // Only calls the API once
-    if (this.pokadex.storedPokedex) {
-      console.log(this.pokadex.pokedex);
-
-      this.pokemons = this.pokadex.pokedex;
-    } else {
-      await this.pokadex.setPokedex();
-      this.pokemons = this.pokadex.pokedex;
-    }
+    await this.pokadex.getStoredPokedex(pokedexID);
+    this.pokemons = this.pokadex.pokemons;
+    // TODO: Calls the API again if game selection was changed
   }
 
   displayPokedex(start: number, end: number) {
@@ -49,7 +71,7 @@ export class PokadexComponent implements OnInit, OnDestroy {
 
   getNumOfPages(): void {
     // Starts counting at page 2 since page 1 is already made in template
-    for (let i = 1; i < this.pokadex.numOfPokemons; i++) {
+    for (let i = 1; i < this.pokemons.length; i++) {
       if (i % 100 === 0) this.numOfPages.push(i / 100);
     }
     // Covers the remaining pokemon-cards

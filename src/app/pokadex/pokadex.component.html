@@ -3,12 +3,6 @@
 
   <nav class="mx-auto my-3" *ngIf="pokemons.length > 0">
     <ul class="pagination justify-content-center">
-      <!-- Previous Button -->
-      <!-- <li class="page-item">
-          <button class="page-link" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </button>
-        </li> -->
 
       <!-- Pages -->
       <li class="page-item" *ngFor="let number of numOfPages">
@@ -20,13 +14,6 @@
           <span aria-hidden="true">{{ number }}</span>
         </a>
       </li>
-      
-      <!-- Next Button -->
-      <!-- <li class="page-item">
-          <button class="page-link" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </button>
-        </li> -->
     </ul>
   </nav>
 
@@ -38,4 +25,19 @@
       [pokemon]="pokemon"
     ></app-pokemon-card>
   </div>
+
+  <nav class="mx-auto my-3" *ngIf="pokemons.length > 0">
+    <ul class="pagination justify-content-center">
+      <!-- Pages -->
+      <li class="page-item" *ngFor="let number of numOfPages">
+        <a
+          class="page-link"
+          [ngClass]="{ 'text-bg-danger': number === currentPageNumber }"
+          (click)="onChangePage(number)"
+        >
+          <span aria-hidden="true">{{ number }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>

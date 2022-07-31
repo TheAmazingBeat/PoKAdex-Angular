@@ -1,50 +1,19 @@
-import { Injectable } from '@angular/core';
-import {
-  GameClient,
-  Generation,
-  NamedAPIResourceList,
-  VersionGroup,
-} from 'pokenode-ts';
+import { EventEmitter, Injectable } from '@angular/core';
+import { gameOptions } from './game.list';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
-  selectedGen: any;
-  selectedGame: any;
-  listOfGens: NamedAPIResourceList;
-  listOfGames: VersionGroup[];
+  listOfGames = gameOptions;
+  gameSelect: EventEmitter<number[]> = new EventEmitter<number[]>();
+  selectedGameID: number[];
 
   constructor() {}
 
-  get generation() {
-    return this.selectedGen;
-  }
-
   get game() {
-    return this.selectedGame;
+    return this.selectedGameID;
   }
 
-  get generations() {
-    // this.listOfGens = this.getListOfGens;
-    return this.listOfGens;
-  }
-
-  set generation(gen: any) {
-    this.selectedGen = gen;
-  }
-
-  set game(something: any) {
-    this.selectedGame = something;
-  }
-
-  async getListOfGens() {
-    const api = new GameClient();
-    return await api
-      .listGenerations()
-      .then((data) => {
-        return data.results;
-      })
-      .catch((error) => {
-        return error;
-      });
+  set game(selected: number[]) {
+    this.selectedGameID = selected;
   }
 }

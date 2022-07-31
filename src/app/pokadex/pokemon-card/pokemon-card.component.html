@@ -1,5 +1,9 @@
 <!-- <p>pokemon-card works!</p> -->
-<button class="pokemon-card w-100" (click)="logPokemon()">
+<a
+  class="pokemon-card w-100"
+  (click)="logPokemon()"
+  [routerLink]="[pokemon.id]"
+>
   <div class="card text-center w-100">
     <div class="card-header">
       <p class="pokemon-id my-1">#{{ pokemon.id }}</p>
@@ -21,4 +25,4 @@
       </div>
     </div>
   </div>
-</button>
+</a>

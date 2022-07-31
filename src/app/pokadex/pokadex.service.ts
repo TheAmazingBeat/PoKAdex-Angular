@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
-import {
-  Pokedexes,
-  Pokemon,
-  PokemonEntry,
-  MainClient,
-} from 'pokenode-ts';
+import { Pokedexes, Pokemon, PokemonEntry, MainClient } from 'pokenode-ts';
+import { PokemonModel } from './pokemon.model';
 const API_ROOT: string = 'https://pokeapi.co/api/v2';
 
 @Injectable({ providedIn: 'root' })
 export class PokadexService {
-  numOfPokemons: number = 0;
-  pokemons: Pokemon[];
-  storedPokedex: boolean = false;
+  listOfPokemons: PokemonModel[];
+  // storedPokedex: boolean = false;
   api = new MainClient({
     cacheOptions: {
-      maxAge: 20000,
+      maxAge: 10000,
       exclude: { query: false },
     },
   });
+  pokedex: PokemonEntry[];
 
   constructor() {}
 
-  get pokedex() {
-    return this.pokemons.slice();
+  get pokemons() {
+    return this.listOfPokemons.slice();
   }
 
   async listThemPokemons() {
@@ -30,31 +26,35 @@ export class PokadexService {
   }
 
   storePokedex() {
-    this.storedPokedex = true;
+    localStorage.setItem('pokedex', JSON.stringify(this.listOfPokemons));
   }
 
-  async setPokedex() {
-    this.pokemons = await this.getPokedex(Pokedexes.NATIONAL);
-    this.storePokedex();
+  async getStoredPokedex(pokedexID: number[]) {
+    const item = localStorage.getItem('pokedex')!;
+    if (item) {
+      this.listOfPokemons = JSON.parse(item);
+    } else{
+      this.listOfPokemons = await this.getPokedex(pokedexID[0])
+      this.storePokedex()
+    }
   }
 
-  async getPokedex(pokedexID: any): Promise<Pokemon[]> {
+  async getPokedex(pokedexID: number): Promise<PokemonModel[]> {
     const ID_INDEX = 42;
 
     return await this.api.game
       .getPokedexById(pokedexID)
       .then(async (data) => {
         // Process Data Entries
-        this.numOfPokemons = data.pokemon_entries.length;
-        const entries: PokemonEntry[] = data.pokemon_entries;
-        console.log(entries);
+        this.pokedex = data.pokemon_entries;
 
         return await Promise.all(
-          entries.map(async (entry) => {
+          this.pokedex.map(async (entry) => {
             // The ID of the pokemon is included in the URL
             const pokemonURL = entry.pokemon_species.url;
             const id = pokemonURL.substring(ID_INDEX, pokemonURL.length - 1);
-            return await this.getPokemon(id);
+            const pokemon: Pokemon = await this.getPokemon(id);
+            return this.filterPokemonProperties(pokemon);
           })
         );
       })
@@ -64,7 +64,6 @@ export class PokadexService {
   }
 
   async getPokemon(id: string): Promise<Pokemon> {
-
     return await this.api.pokemon
       .getPokemonById(+id)
       .then((data) => {
@@ -74,4 +73,31 @@ export class PokadexService {
         return error;
       });
   }
+
+  totalChars: number = 0;
+  filterPokemonProperties(p: Pokemon): PokemonModel {
+    const pokemon: PokemonModel = {
+      id: p.id,
+      name: p.name,
+      // base_experience: p.base_experience,
+      // abilities: p.abilities,
+      // forms: p.forms,
+      // game_indices: p.game_indices,
+      // location_area_encounters: p.location_area_encounters,
+      // moves: p.moves,
+      // species: p.species,
+      // stats: p.stats,
+      types: p.types,
+    };
+    const stringLength = JSON.stringify(pokemon).length;
+    this.totalChars += stringLength;
+    // console.log(this.totalChars);
+    return pokemon;
+  }
+
+  /**
+   * TO DO LIST:
+   * - getPokemonSpecies() ---> FOR POKEMON COMPONENT & DETERMINE EVOLUTION STAGES & EGG GROUP
+   * -
+   */
 }

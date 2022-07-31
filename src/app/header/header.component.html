@@ -10,26 +10,46 @@
         >
           <i class="bi-list" style="font-size: 1.25rem"></i>
         </button>
-        <a class="navbar-brand mx-2" [routerLink]="['pokadex']">PoKAdex</a>
+        <!-- <a class="navbar-brand mx-2" [routerLink]="['pokadex']">PoKAdex</a> -->
+        <form>
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Pokemon, Items, Moves, etc."
+            aria-label="Search"
+          />
+        </form>
       </div>
 
-      <!-- <form class="d-flex" role="list">
-        <div class="input-group">
-          <select class="form-select" name="generation" id="game">
-            <option value="1" selected>Gen 1</option>
-            <option value="2">Gen 2</option>
-            <option value="3">Gen 3</option>
-            <option value="4">Gen 4</option>
-            <option value="5">Gen 5</option>
-            <option value="6">Gen 6</option>
-            <option value="7">Gen 7</option>
-            <option value="8">Gen 8</option>
-          </select>
-          <select class="form-select" name="game" id="game">
-            <option value="red-blue">Red, Blue</option>
-          </select>
-        </div>
-      </form> -->
+      <div>
+        <select
+          name="game"
+          id="gameSelect"
+          class="form-select"
+          (change)="onGameChanged(gameSelect.value)"
+          #gameSelect
+        >
+          <option [value]="game.pokedexID" *ngFor="let game of gameOptions">
+            {{ game.name }}
+          </option>
+          <!-- <option value="KANTO">Red / Blue / Yellow</option>
+          <option value="ORIGINAL-JOHTO">Gold / Silver / Crystal</option>
+          <option value="HOENN">Ruby / Sapphire / Emerald</option>
+          <option value="KANTO">FireRed / LeafGreen</option>
+          <option value="ORIGINAL-SINNOH">Diamond / Pearl, Platinum</option>
+          <option value="UPDATED-JOHTO">HeartGold / SoulSilver</option>
+          <option value="ORIGINAL-UNOVA">Black / White</option>
+          <option value="UPDATED-UNOVA">Black 2 / White 2</option>
+          <option value="KALOS">X / Y</option>
+          <option value="UPDATED-HOENN">Omega Ruby / Alpha Sapphire</option>
+          <option value="ALOLA">Sun / Moon</option>
+          <option value="UPDATED-ALOLA">Ultra Sun / Ultra Moon</option>
+          <option value="LETS-GO-KANTO">
+            Let's Go Pickachu / Let's Go Eevee
+          </option>
+          <option value="{27,28,29}">Sword / Shield</option> -->
+        </select>
+      </div>
     </div>
   </nav>
 </header>

@@ -14,6 +14,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { TypeBadgeComponent } from './pokadex/type-badge/type-badge.component';
+import { PokemonComponent } from './pokadex/pokemon/pokemon.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TypeBadgeComponent } from './pokadex/type-badge/type-badge.component';
     MovesComponent,
     SidebarComponent,
     HeaderComponent,
-    TypeBadgeComponent
+    TypeBadgeComponent,
+    PokemonComponent
   ],
   imports: [
     BrowserModule,

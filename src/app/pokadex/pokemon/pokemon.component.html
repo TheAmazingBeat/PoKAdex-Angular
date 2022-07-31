@@ -1,0 +1,104 @@
+<h2 class="pokemon-id">#{{ id }}</h2>
+<h2 class="pokemon-name">{{ pokemon.name }}</h2>
+<img
+  [src]="pokemonImgPath"
+  [alt]="'Picture of ' + pokemon.name"
+  loading="lazy"
+  class="pokemon-image mb-2 img-fluid"
+/>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link active"
+      id="stats-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#stats-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="stats-tab-pane"
+      aria-selected="true"
+    >
+      Stats
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="contact-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#evolution-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="evolution-tab-pane"
+      aria-selected="false"
+    >
+      Evolution
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#encounters-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="encounters-tab-pane"
+      aria-selected="false"
+    >
+      Encounters
+    </button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button
+      class="nav-link"
+      id="profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#encounters-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="encounters-tab-pane"
+      aria-selected="false"
+    >
+      Forms
+    </button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div
+    class="tab-pane fade show active"
+    id="stats-tab-pane"
+    role="tabpanel"
+    aria-labelledby="home-tab"
+    tabindex="0"
+  >
+    ...
+  </div>
+  <div
+    class="tab-pane fade"
+    id="evolution-tab-pane"
+    role="tabpanel"
+    aria-labelledby="evolution-tab"
+    tabindex="0"
+  >
+    ...
+  </div>
+  <div
+    class="tab-pane fade"
+    id="encounters-tab-pane"
+    role="tabpanel"
+    aria-labelledby="encounters-tab"
+    tabindex="0"
+  >
+    ...
+  </div>
+  <div
+    class="tab-pane fade"
+    id="forms-tab-pane"
+    role="tabpanel"
+    aria-labelledby="forms-tab"
+    tabindex="0"
+  >
+    ...
+  </div>
+</div>
