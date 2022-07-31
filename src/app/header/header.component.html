@@ -27,9 +27,11 @@
           id="gameSelect"
           class="form-select"
           (change)="onGameChanged(gameSelect.value)"
+          [(ngModel)]="selectedGame"
           #gameSelect
         >
-          <option [value]="game.pokedexID" *ngFor="let game of gameOptions">
+        <option [ngValue]="null" disabled>Select Game</option>
+          <option  [ngValue]="game.pokedexID" *ngFor="let game of gameOptions">
             {{ game.name }}
           </option>
           <!-- <option value="KANTO">Red / Blue / Yellow</option>

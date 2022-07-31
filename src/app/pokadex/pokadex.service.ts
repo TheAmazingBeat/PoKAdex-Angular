@@ -30,7 +30,8 @@ export class PokadexService {
     if (item && newGameSelection) {
       this.listOfPokemons = JSON.parse(item);
     } else {
-      this.listOfPokemons = await this.getPokedex(pokedexID[0]);
+      // TODO: Able to display multiple regions in that array
+      this.listOfPokemons = await this.getPokedex(pokedexID[0]); //Only one region
       this.storePokedex();
     }
   }
@@ -48,9 +49,13 @@ export class PokadexService {
           this.pokedex.map(async (entry) => {
             // The ID of the pokemon is included in the URL
             const pokemonURL = entry.pokemon_species.url;
+            const entryNum = entry.entry_number;
             const id = pokemonURL.substring(ID_INDEX, pokemonURL.length - 1);
             const pokemon: Pokemon = await this.getPokemon(id);
-            const filteredPokemon = this.filterPokemonProperties(pokemon);
+            const filteredPokemon = this.filterPokemonProperties(
+              pokemon,
+              entryNum
+            );
 
             return filteredPokemon;
           })
@@ -73,10 +78,11 @@ export class PokadexService {
   }
 
   totalChars: number = 0;
-  filterPokemonProperties(p: Pokemon): PokemonModel {
+  filterPokemonProperties(p: Pokemon, e: number): PokemonModel {
     const pokemon: PokemonModel = {
       id: p.id,
       name: p.name,
+      entry: e,
       // base_experience: p.base_experience,
       // abilities: p.abilities,
       // forms: p.forms,

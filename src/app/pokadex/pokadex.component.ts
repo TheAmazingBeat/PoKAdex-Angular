@@ -1,13 +1,4 @@
-import {
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Pokedexes, Pokemon, PokemonSpecies } from 'pokenode-ts';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GameService } from '../shared/game.service';
 import { PokadexService } from './pokadex.service';
@@ -23,38 +14,30 @@ export class PokadexComponent implements OnInit, OnDestroy {
   pokemons: PokemonModel[] = [];
   start: number = 0;
   end: number = 100;
-  numOfPages: number[];
-  currentPageNumber: number;
+  numOfPages: number[] = [];
+  currentPageNumber: number = 1;
   gameSubscription: Subscription;
   prevPokedex: number[];
 
   constructor(
     private pokadex: PokadexService,
     private gameService: GameService
-  ) {
-    this.numOfPages = [];
-    this.currentPageNumber = 1;
-  }
+  ) {}
 
   async ngOnInit() {
-    this.prevPokedex = this.gameService.game;
+    // Gets national dex if there is no previous selected
+    this.prevPokedex =
+      this.gameService.game === null ? [1] : this.gameService.game;
     this.gameSubscription = this.gameService.gameSelect.subscribe(
       async (selectedValue: number[]) => {
-        this.start = 0;
-        this.end = 100;
-        this.numOfPages = [];
-        this.currentPageNumber = 1;
         this.pokemons = [];
         await this.callAPI(selectedValue);
-        console.log(selectedValue);
         this.displayPokedex(this.start, this.end);
-        this.getNumOfPages();
       }
     );
 
-    await this.callAPI([1]);
+    await this.callAPI(this.prevPokedex);
     this.displayPokedex(this.start, this.end);
-    this.getNumOfPages();
   }
 
   ngOnDestroy(): void {
@@ -71,15 +54,18 @@ export class PokadexComponent implements OnInit, OnDestroy {
     await this.pokadex.getStoredPokedex(pokedexID, compareGameSelection);
     this.pokemons = this.pokadex.pokemons;
     this.prevPokedex = pokedexID;
-    // TODO: Calls the API again if game selection was changed
   }
 
   displayPokedex(start: number, end: number) {
+    this.start = 0;
+    this.end = 100;
+    this.numOfPages = [];
+    this.currentPageNumber = 1;
     this.pageOfPokemons = this.pokemons.slice(start, end);
+    this.getNumOfPages();
   }
 
   getNumOfPages(): void {
-    // Starts counting at page 2 since page 1 is already made in template
     for (let i = 1; i < this.pokemons.length; i++) {
       if (i % 100 === 0) this.numOfPages.push(i / 100);
     }

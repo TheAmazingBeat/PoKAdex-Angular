@@ -16,4 +16,13 @@ export class GameService {
   set game(selected: number[]) {
     this.selectedGameID = selected;
   }
+
+  storeGameSelection(selectedGame: number[]) {
+    localStorage.setItem('game', JSON.stringify(selectedGame));
+  }
+
+  async getGameSelection() {
+    const item = localStorage.getItem('game')!;
+    return JSON.parse(item);
+  }
 }

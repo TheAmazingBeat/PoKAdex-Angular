@@ -10,6 +10,7 @@ import {
 export class PokemonModel {
   id: number;
   name: string;
+  entry: number;
   // base_experience: number;
   // abilities: PokemonAbility[];
   // forms: NamedAPIResource[];

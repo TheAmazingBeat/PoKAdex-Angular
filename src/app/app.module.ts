@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { TypeBadgeComponent } from './pokadex/type-badge/type-badge.component';
 import { PokemonComponent } from './pokadex/pokemon/pokemon.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PokemonComponent } from './pokadex/pokemon/pokemon.component';
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    FormsModule
 
   ],
   providers: [],
