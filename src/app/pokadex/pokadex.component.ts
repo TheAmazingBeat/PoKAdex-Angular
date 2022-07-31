@@ -26,7 +26,7 @@ export class PokadexComponent implements OnInit, OnDestroy {
   numOfPages: number[];
   currentPageNumber: number;
   gameSubscription: Subscription;
-  // prevPokedex: number[];
+  prevPokedex: number[];
 
   constructor(
     private pokadex: PokadexService,
@@ -37,10 +37,18 @@ export class PokadexComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.prevPokedex = this.gameService.game;
     this.gameSubscription = this.gameService.gameSelect.subscribe(
       async (selectedValue: number[]) => {
+        this.start = 0;
+        this.end = 100;
+        this.numOfPages = [];
+        this.currentPageNumber = 1;
+        this.pokemons = [];
         await this.callAPI(selectedValue);
         console.log(selectedValue);
+        this.displayPokedex(this.start, this.end);
+        this.getNumOfPages();
       }
     );
 
@@ -55,13 +63,14 @@ export class PokadexComponent implements OnInit, OnDestroy {
   }
 
   async callAPI(pokedexID: number[]): Promise<void> {
-    // const prevArray = JSON.stringify(this.prevPokedex);
-    // const chosenArray = JSON.stringify(pokedexID);
-    // const compareGameSelection: boolean = prevArray === chosenArray;
-    
+    const prevArray = JSON.stringify(this.prevPokedex);
+    const chosenArray = JSON.stringify(pokedexID);
+    const compareGameSelection: boolean = prevArray === chosenArray;
+
     // Only calls the API once
-    await this.pokadex.getStoredPokedex(pokedexID);
+    await this.pokadex.getStoredPokedex(pokedexID, compareGameSelection);
     this.pokemons = this.pokadex.pokemons;
+    this.prevPokedex = pokedexID;
     // TODO: Calls the API again if game selection was changed
   }
 

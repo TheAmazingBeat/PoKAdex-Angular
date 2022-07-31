@@ -21,21 +21,17 @@ export class PokadexService {
     return this.listOfPokemons.slice();
   }
 
-  async listThemPokemons() {
-    return await this.api.pokemon.listPokemons(0, 1000);
-  }
-
   storePokedex() {
     localStorage.setItem('pokedex', JSON.stringify(this.listOfPokemons));
   }
 
-  async getStoredPokedex(pokedexID: number[]) {
+  async getStoredPokedex(pokedexID: number[], newGameSelection: boolean) {
     const item = localStorage.getItem('pokedex')!;
-    if (item) {
+    if (item && newGameSelection) {
       this.listOfPokemons = JSON.parse(item);
-    } else{
-      this.listOfPokemons = await this.getPokedex(pokedexID[0])
-      this.storePokedex()
+    } else {
+      this.listOfPokemons = await this.getPokedex(pokedexID[0]);
+      this.storePokedex();
     }
   }
 
@@ -54,7 +50,9 @@ export class PokadexService {
             const pokemonURL = entry.pokemon_species.url;
             const id = pokemonURL.substring(ID_INDEX, pokemonURL.length - 1);
             const pokemon: Pokemon = await this.getPokemon(id);
-            return this.filterPokemonProperties(pokemon);
+            const filteredPokemon = this.filterPokemonProperties(pokemon);
+
+            return filteredPokemon;
           })
         );
       })
