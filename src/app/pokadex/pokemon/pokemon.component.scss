@@ -7,7 +7,8 @@
 }
 
 .pokemon-image {
-  max-width: 300px;
+  // max-width: 300px;
+  text-align: center;
 }
 
 .nav-link {
@@ -22,3 +23,7 @@
 // *{
 //   outline: 1px solid red;
 // }
+
+*{
+  text-transform: capitalize;
+}

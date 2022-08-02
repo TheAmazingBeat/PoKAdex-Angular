@@ -2,12 +2,12 @@
   <div class="spinner" *ngIf="pokemon === undefined"></div>
   <div class="row my-4" *ngIf="pokemon != undefined">
     <!-- ID, NAME, AND PICTURE -->
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="heading my-2">
-        <h2>
+        <h1>
           <span class="pokemon-id">#{{ id }}</span> -
           <span class="pokemon-name">{{ name }}</span>
-        </h2>
+        </h1>
       </div>
       <img
         [src]="pokemonImgPath"
@@ -16,40 +16,33 @@
         class="pokemon-image mb-2 img-fluid"
       />
     </div>
-    <!-- BASIC DATA -->
-    <div class="col-md-6" #data>
-      <!-- TYPES -->
-      <div class="basic-data">
-        <span class="data-name">Type: </span>
-        <app-type-badge
-          *ngFor="let type of pokemon.types"
-          [type]="type"
-        ></app-type-badge>
+    <div class="col-md-8" #data>
+      <!-- BASIC DATA & BREEDING ROW -->
+      <div class="row">
+        <div class="col-md-6 my-3">
+          <app-pokemon-basic-data
+            [pokemon]="pokemon"
+            [species]="species"
+            [language]="languageID"
+          ></app-pokemon-basic-data>
+        </div>
+        <div class="col-md-6 my-3">
+          <app-pokemon-breeding [species]="species"></app-pokemon-breeding>
+        </div>
       </div>
-      <!-- ABILITIES -->
-      <div class="basic-data">
-        <span class="data-name">Abilities: </span>
-        <span class="ability-name" *ngFor="let abl of pokemon.abilities"
-          >{{ abl.ability.name }},
-        </span>
-      </div>
-      <!-- HEIGHT -->
-      <div class="basic-data">
-        <span class="data-name">Height: </span>
-        <!-- Decimeter to Meter -->
-        <span>{{ pokemon.height / 10 }} m</span>
-      </div>
-      <!-- WEIGHT -->
-      <div class="basic-data">
-        <span class="data-name">Weight: </span>
-        <!-- Hectogram to Kilogram -->
-        <span>{{ pokemon.weight / 10 }} kg</span>
+
+      <!-- TYPE CHART ROW -->
+      <div class="row">
+        <div class="col-12">
+          <app-pokemon-type-chart></app-pokemon-type-chart>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row my-4" *ngIf="pokemon != undefined">
-    <div class="col-xs-12">
+    <!-- <div class="col-md-4"></div> -->
+    <div class="col-12">
       <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
         <li class="nav-item" role="presentation" *ngFor="let tab of tabs">
           <button
@@ -62,29 +55,34 @@
             [attr.aria-controls]="tab"
             aria-selected="true"
           >
-            {{ tab }}
+            <span *ngIf="tab != 'Stats'">{{ tab }}</span>
+            <span *ngIf="tab === 'Stats'">Base Stats</span>
           </button>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
-        <div
+        <!-- STATS TAB -->
+        <app-pokemon-stats
           class="tab-pane fade show active"
           id="Stats"
           role="tabpanel"
           aria-labelledby="stats-tab"
           tabindex="0"
+          [stats]="pokemon.stats"
         >
-          <app-pokemon-stats [stats]="pokemon.stats"></app-pokemon-stats>
-        </div>
-        <div
+        </app-pokemon-stats>
+        <!-- EVOLUTION TAB -->
+        <app-pokemon-evolution
           class="tab-pane fade"
           id="Evolution"
           role="tabpanel"
           aria-labelledby="evolution-tab"
           tabindex="0"
+          [pokeID]="chainID"
+          [pokeName]="name"
         >
-          Evolution here
-        </div>
+        </app-pokemon-evolution>
+        <!-- ENCOUNTERS TAB -->
         <div
           class="tab-pane fade"
           id="Encounters"
@@ -94,6 +92,7 @@
         >
           Encounters here
         </div>
+        <!-- FORMS TAB -->
         <div
           class="tab-pane fade"
           id="Forms"
@@ -103,6 +102,7 @@
         >
           Forms here
         </div>
+        <!-- MOVES TAB -->
         <div
           class="tab-pane fade"
           id="Moves"

@@ -60,7 +60,6 @@ export class PokadexComponent implements OnInit, OnDestroy {
     this.start = 0;
     this.end = 100;
     this.numOfPages = [];
-    this.currentPageNumber = 1;
     this.pageOfPokemons = this.pokemons.slice(start, end);
     this.getNumOfPages();
   }
@@ -78,6 +77,7 @@ export class PokadexComponent implements OnInit, OnDestroy {
     this.start = 100 * pageNumber - 100;
     this.end = 100 * pageNumber;
     this.displayPokedex(this.start, this.end);
+    
   }
 
   isActive(n: number) {

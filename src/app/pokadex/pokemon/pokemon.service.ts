@@ -46,4 +46,15 @@ export class PokemonService {
         return error;
       });
   }
+
+  async getEvolveChain(id: number) {
+    return await this.api.evolution
+      .getEvolutionChainById(id)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }

@@ -1,0 +1,50 @@
+<div class="heading">
+  <h2>Basic Data</h2>
+</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Type</th>
+      <td>
+        <div class="types">
+          <app-type-badge
+            class="me-1"
+            *ngFor="let type of pokemon.types"
+            [type]="type"
+          ></app-type-badge>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th>Species</th>
+      <td>
+        <span>{{ species.genera[languageID].genus }}</span>
+      </td>
+    </tr>
+    <tr>
+      <th>Abilities</th>
+      <td>
+        <span class="ability" *ngFor="let abl of pokemon.abilities">
+          <span class="ability-name">
+            {{ abl.ability.name }}
+            <span class="ability-hidden" *ngIf="abl.is_hidden">(Hidden)</span>,
+          </span>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <th>Height</th>
+      <td>
+        <!-- Decimeter to Meter -->
+        <span>{{ pokemon.height / 10 }} m</span>
+      </td>
+    </tr>
+    <tr>
+      <th>Weight</th>
+      <td>
+        <!-- Hectogram to Kilogram -->
+        <span>{{ pokemon.weight / 10 }} kg</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

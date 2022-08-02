@@ -1,0 +1,36 @@
+<div class="heading">
+  <h2>Breeding</h2>
+</div>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Egg Group</th>
+      <td>
+        <span *ngFor="let group of species.egg_groups; let i = index">
+          {{ group.name
+          }}<span *ngIf="i + 1 < species.egg_groups.length">,</span>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <th>Egg Cycles</th>
+      <td>
+        {{ species.hatch_counter }} ({{
+          species.hatch_counter * stepsInCycle
+        }}
+        steps)
+      </td>
+    </tr>
+    <tr>
+      <th>Gender Ratio</th>
+      <td>
+        <div class="male-ratio">
+          Male: {{ 100 - species.gender_rate / genderDivider }}%
+        </div>
+        <div class="female-ratio">
+          Female: {{ species.gender_rate / genderDivider }}%
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

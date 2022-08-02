@@ -17,6 +17,10 @@ import { TypeBadgeComponent } from './pokadex/type-badge/type-badge.component';
 import { PokemonComponent } from './pokadex/pokemon/pokemon.component';
 import { FormsModule } from '@angular/forms';
 import { PokemonStatsComponent } from './pokadex/pokemon/pokemon-stats/pokemon-stats.component';
+import { PokemonEvolutionComponent } from './pokadex/pokemon/pokemon-evolution/pokemon-evolution.component';
+import { PokemonBreedingComponent } from './pokadex/pokemon/pokemon-breeding/pokemon-breeding.component';
+import { PokemonBasicDataComponent } from './pokadex/pokemon/pokemon-basic-data/pokemon-basic-data.component';
+import { PokemonTypeChartComponent } from './pokadex/pokemon/pokemon-type-chart/pokemon-type-chart.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { PokemonStatsComponent } from './pokadex/pokemon/pokemon-stats/pokemon-s
     HeaderComponent,
     TypeBadgeComponent,
     PokemonComponent,
-    PokemonStatsComponent
+    PokemonStatsComponent,
+    PokemonEvolutionComponent,
+    PokemonBreedingComponent,
+    PokemonBasicDataComponent,
+    PokemonTypeChartComponent
   ],
   imports: [
     BrowserModule,

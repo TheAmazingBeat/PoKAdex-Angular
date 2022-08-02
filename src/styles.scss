@@ -41,3 +41,15 @@ body {
     transform: rotate(360deg);
   }
 }
+
+table {
+  tbody {
+    tr {
+      border-top: 1px solid $gray-200;
+    }
+  }
+  th {
+    vertical-align: middle;
+    width: 30%;
+  }
+}
