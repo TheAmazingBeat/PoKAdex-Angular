@@ -51,7 +51,7 @@ export class PokadexService {
             const pokemonURL = entry.pokemon_species.url;
             const entryNum = entry.entry_number;
             const id = pokemonURL.substring(ID_INDEX, pokemonURL.length - 1);
-            const pokemon: Pokemon = await this.getPokemon(id);
+            const pokemon: Pokemon = await this.getPokemon(+id);
             const filteredPokemon = this.filterPokemonProperties(
               pokemon,
               entryNum
@@ -66,9 +66,9 @@ export class PokadexService {
       });
   }
 
-  async getPokemon(id: string): Promise<Pokemon> {
+  async getPokemon(id: number): Promise<Pokemon> {
     return await this.api.pokemon
-      .getPokemonById(+id)
+      .getPokemonById(id)
       .then((data) => {
         return data;
       })
@@ -99,9 +99,14 @@ export class PokadexService {
     return pokemon;
   }
 
-  /**
-   * TO DO LIST:
-   * - getPokemonSpecies() ---> FOR POKEMON COMPONENT & DETERMINE EVOLUTION STAGES & EGG GROUP
-   * -
-   */
+  async getPokemonSpecies(pokemonName: string) {
+    return await this.api.pokemon
+      .getPokemonSpeciesByName(pokemonName)
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }

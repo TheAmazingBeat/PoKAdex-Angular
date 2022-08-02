@@ -1,0 +1,18 @@
+<div class="row my-2">
+  <div class="stat-container" *ngFor="let stat of stats">
+    <p class="stat-name">{{ stat.stat.name }}</p>
+    <div class="stat-bar-outer">
+      <div
+        class="stat-bar-inner"
+        [ngStyle]="{ width: (stat.base_stat / maxBaseStat) * 100 + '%' }"
+        [ngClass]="{
+          weak: stat.base_stat < 60,
+          mid: stat.base_stat >= 60 && stat.base_stat < 120,
+          strong: stat.base_stat >= 120 && stat.base_stat < 180
+        }"
+      >
+        <span class="inner-text">{{ stat.base_stat }}</span>
+      </div>
+    </div>
+  </div>
+</div>

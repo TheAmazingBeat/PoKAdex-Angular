@@ -16,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { TypeBadgeComponent } from './pokadex/type-badge/type-badge.component';
 import { PokemonComponent } from './pokadex/pokemon/pokemon.component';
 import { FormsModule } from '@angular/forms';
+import { PokemonStatsComponent } from './pokadex/pokemon/pokemon-stats/pokemon-stats.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     HeaderComponent,
     TypeBadgeComponent,
-    PokemonComponent
+    PokemonComponent,
+    PokemonStatsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,104 +1,118 @@
-<h2 class="pokemon-id">#{{ id }}</h2>
-<h2 class="pokemon-name">{{ pokemon.name }}</h2>
-<img
-  [src]="pokemonImgPath"
-  [alt]="'Picture of ' + pokemon.name"
-  loading="lazy"
-  class="pokemon-image mb-2 img-fluid"
-/>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item" role="presentation">
-    <button
-      class="nav-link active"
-      id="stats-tab"
-      data-bs-toggle="tab"
-      data-bs-target="#stats-tab-pane"
-      type="button"
-      role="tab"
-      aria-controls="stats-tab-pane"
-      aria-selected="true"
-    >
-      Stats
-    </button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button
-      class="nav-link"
-      id="contact-tab"
-      data-bs-toggle="tab"
-      data-bs-target="#evolution-tab-pane"
-      type="button"
-      role="tab"
-      aria-controls="evolution-tab-pane"
-      aria-selected="false"
-    >
-      Evolution
-    </button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button
-      class="nav-link"
-      id="profile-tab"
-      data-bs-toggle="tab"
-      data-bs-target="#encounters-tab-pane"
-      type="button"
-      role="tab"
-      aria-controls="encounters-tab-pane"
-      aria-selected="false"
-    >
-      Encounters
-    </button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button
-      class="nav-link"
-      id="profile-tab"
-      data-bs-toggle="tab"
-      data-bs-target="#encounters-tab-pane"
-      type="button"
-      role="tab"
-      aria-controls="encounters-tab-pane"
-      aria-selected="false"
-    >
-      Forms
-    </button>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div
-    class="tab-pane fade show active"
-    id="stats-tab-pane"
-    role="tabpanel"
-    aria-labelledby="home-tab"
-    tabindex="0"
-  >
-    ...
+<div class="container">
+  <div class="spinner" *ngIf="pokemon === undefined"></div>
+  <div class="row my-4" *ngIf="pokemon != undefined">
+    <!-- ID, NAME, AND PICTURE -->
+    <div class="col-md-6">
+      <div class="heading my-2">
+        <h2>
+          <span class="pokemon-id">#{{ id }}</span> -
+          <span class="pokemon-name">{{ name }}</span>
+        </h2>
+      </div>
+      <img
+        [src]="pokemonImgPath"
+        [alt]="'Picture of ' + name"
+        loading="lazy"
+        class="pokemon-image mb-2 img-fluid"
+      />
+    </div>
+    <!-- BASIC DATA -->
+    <div class="col-md-6" #data>
+      <!-- TYPES -->
+      <div class="basic-data">
+        <span class="data-name">Type: </span>
+        <app-type-badge
+          *ngFor="let type of pokemon.types"
+          [type]="type"
+        ></app-type-badge>
+      </div>
+      <!-- ABILITIES -->
+      <div class="basic-data">
+        <span class="data-name">Abilities: </span>
+        <span class="ability-name" *ngFor="let abl of pokemon.abilities"
+          >{{ abl.ability.name }},
+        </span>
+      </div>
+      <!-- HEIGHT -->
+      <div class="basic-data">
+        <span class="data-name">Height: </span>
+        <!-- Decimeter to Meter -->
+        <span>{{ pokemon.height / 10 }} m</span>
+      </div>
+      <!-- WEIGHT -->
+      <div class="basic-data">
+        <span class="data-name">Weight: </span>
+        <!-- Hectogram to Kilogram -->
+        <span>{{ pokemon.weight / 10 }} kg</span>
+      </div>
+    </div>
   </div>
-  <div
-    class="tab-pane fade"
-    id="evolution-tab-pane"
-    role="tabpanel"
-    aria-labelledby="evolution-tab"
-    tabindex="0"
-  >
-    ...
-  </div>
-  <div
-    class="tab-pane fade"
-    id="encounters-tab-pane"
-    role="tabpanel"
-    aria-labelledby="encounters-tab"
-    tabindex="0"
-  >
-    ...
-  </div>
-  <div
-    class="tab-pane fade"
-    id="forms-tab-pane"
-    role="tabpanel"
-    aria-labelledby="forms-tab"
-    tabindex="0"
-  >
-    ...
+
+  <div class="row my-4" *ngIf="pokemon != undefined">
+    <div class="col-xs-12">
+      <ul class="nav nav-pills nav-justified" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation" *ngFor="let tab of tabs">
+          <button
+            [ngClass]="{ active: tab === 'Stats' }"
+            class="nav-link"
+            data-bs-toggle="tab"
+            [attr.data-bs-target]="'#' + tab"
+            type="button"
+            role="tab"
+            [attr.aria-controls]="tab"
+            aria-selected="true"
+          >
+            {{ tab }}
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="Stats"
+          role="tabpanel"
+          aria-labelledby="stats-tab"
+          tabindex="0"
+        >
+          <app-pokemon-stats [stats]="pokemon.stats"></app-pokemon-stats>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="Evolution"
+          role="tabpanel"
+          aria-labelledby="evolution-tab"
+          tabindex="0"
+        >
+          Evolution here
+        </div>
+        <div
+          class="tab-pane fade"
+          id="Encounters"
+          role="tabpanel"
+          aria-labelledby="encounters-tab"
+          tabindex="0"
+        >
+          Encounters here
+        </div>
+        <div
+          class="tab-pane fade"
+          id="Forms"
+          role="tabpanel"
+          aria-labelledby="forms-tab"
+          tabindex="0"
+        >
+          Forms here
+        </div>
+        <div
+          class="tab-pane fade"
+          id="Moves"
+          role="tabpanel"
+          aria-labelledby="moves-tab"
+          tabindex="0"
+        >
+          Moves here
+        </div>
+      </div>
+    </div>
   </div>
 </div>
