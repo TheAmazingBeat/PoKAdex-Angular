@@ -7,7 +7,7 @@ import { PokemonType } from 'pokenode-ts';
   styleUrls: ['./type-badge.component.scss']
 })
 export class TypeBadgeComponent implements OnInit {
-  @Input('type') pType: PokemonType;
+  @Input('type') pType: any;
 
   constructor() { }
 

@@ -1,1 +1,14 @@
-<span class="type-badge badge p-2" [ngClass]="pType.type.name">{{ pType.type.name }}</span>
+<span
+  class="type-badge badge p-2"
+  *ngIf="pType.type != undefined"
+  [ngClass]="pType.type.name"
+>
+  {{ pType.type.name }}
+</span>
+<span
+  class="type-badge badge p-2"
+  *ngIf="pType.name != undefined"
+  [ngClass]="pType.name"
+>
+  {{ pType.name.substring(0,3) }}
+</span>

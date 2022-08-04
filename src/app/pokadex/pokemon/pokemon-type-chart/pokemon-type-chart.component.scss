@@ -1,0 +1,33 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+.type-chart {
+  th,
+  td {
+    width: 2rem;
+  }
+
+  // span {
+  //   width: 1rem !important;
+  // }
+
+  .normal {
+    background-color: $gray-100;
+    color: $gray-500;
+  }
+  .weak {
+    background-color: $red-600;
+    color: white;
+  }
+  .very-weak {
+    background-color: $red-700;
+    color: white;
+  }
+  .strong {
+    background-color: $green-600;
+    color: white;
+  }
+  .very-strong {
+    background-color: $green-700;
+    color: white;
+  }
+}

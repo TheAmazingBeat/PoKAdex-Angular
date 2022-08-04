@@ -39,7 +39,7 @@ export class PokemonComponent implements OnInit {
     const ID_INDEX = 42;
     const chainURL = this.species.evolution_chain.url;
     this.chainID = +chainURL.substring(ID_INDEX, chainURL.length - 1);
-    console.log(this.pokemon);
-    console.log(this.species);
+    // console.log(this.pokemon);
+    // console.log(this.species);
   }
 }

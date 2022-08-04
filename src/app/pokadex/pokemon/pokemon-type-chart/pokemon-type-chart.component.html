@@ -1,3 +1,47 @@
 <div class="heading">
   <h2>Damage Taken</h2>
 </div>
+<table *ngIf="typesList != undefined" class="type-chart">
+  <tbody>
+    <tr>
+      <th *ngFor="let type of typesList.slice(0, 9)" scope="col">
+        <app-type-badge [type]="type"></app-type-badge>
+      </th>
+    </tr>
+    <tr>
+      <td
+        class="text-center damage"
+        *ngFor="let type of damageTaken.slice(0, 9)"
+        [ngClass]="{
+          normal: type.damage === '1',
+          weak: type.damage === '2',
+          'very-weak': type.damage === '4',
+          strong: type.damage === '1/2',
+          'very-strong': type.damage === '1/4'
+        }"
+      >
+        {{ type.damage }}
+      </td>
+    </tr>
+    <tr>
+      <th *ngFor="let type of typesList.slice(9, 18)" scope="col">
+        <app-type-badge [type]="type"></app-type-badge>
+      </th>
+    </tr>
+    <tr>
+      <td
+        class="text-center damage"
+        *ngFor="let type of damageTaken.slice(9, 18)"
+        [ngClass]="{
+          normal: type.damage === '1',
+          weak: type.damage === '2',
+          'very-weak': type.damage === '4',
+          strong: type.damage === '1/2',
+          'very-strong': type.damage === '1/4'
+        }"
+      >
+        {{ type.damage }}
+      </td>
+    </tr>
+  </tbody>
+</table>

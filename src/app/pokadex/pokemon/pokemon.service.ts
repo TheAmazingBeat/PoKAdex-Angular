@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MainClient, Pokemon, PokemonSpecies } from 'pokenode-ts';
+import { MainClient, NamedAPIResource, Pokemon, PokemonSpecies } from 'pokenode-ts';
 
 @Injectable({ providedIn: 'root' })
 export class PokemonService {
@@ -24,27 +24,23 @@ export class PokemonService {
   constructor() {}
 
   async getPokemon(id: number) {
-    return await this.api.pokemon
-      .getPokemonById(id)
-      .then((data) => {
-        this._pokemon = data;
-        return data;
-      })
-      .catch((error) => {
-        return error;
-      });
+    try {
+      const data = await this.api.pokemon.getPokemonById(id);
+      this.pokemon = data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getSpecies(name: string) {
-    return await this.api.pokemon
-      .getPokemonSpeciesByName(name)
-      .then((data) => {
-        this._species = data;
-        return data;
-      })
-      .catch((error) => {
-        return error;
-      });
+    try {
+      const data = await this.api.pokemon.getPokemonSpeciesByName(name);
+      this.species = data;
+      return data;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getEvolveChain(id: number) {
@@ -56,5 +52,24 @@ export class PokemonService {
       .catch((error) => {
         return error;
       });
+  }
+
+  async listAllTypes(): Promise<NamedAPIResource[]> {
+    return await this.api.pokemon
+      .listTypes()
+      .then((data) => {
+        return data.results.slice(0, 18);
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  async getType(name: string) {
+    try {
+      return this.api.pokemon.getTypeByName(name);
+    } catch (error) {
+      throw error;
+    }
   }
 }

@@ -16,6 +16,6 @@ export class PokemonEvolutionComponent implements OnInit {
 
   async ngOnInit() {
     this.chain = await this.pokemonService.getEvolveChain(this.id);
-    console.log(this.chain)
+    // console.log(this.chain)
   }
 }
