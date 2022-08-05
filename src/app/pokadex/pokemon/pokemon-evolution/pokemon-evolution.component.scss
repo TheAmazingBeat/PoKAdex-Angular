@@ -1,0 +1,44 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+.evolution-stage, .arrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.first-stage,
+.second-stage,
+.third-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.img-container {
+  width: 125px;
+  height: 125px;
+  border: 1px solid $gray-200;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.evolution-img {
+  max-width: 80px;
+}
+
+.evolution-name{
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+}
+
+.evolution-detail{
+  margin-bottom: 0.25rem;
+  color: $gray-600;
+}
+
+

@@ -1,1 +1,65 @@
-<p>pokemon-evolution works!</p>
+<div class="container row d-flex justify-content-center my-4">
+  <!-- First Stage -->
+  <div class="col-sm-2 evolution-stage">
+    <div class="first-stage" *ngFor="let pokemon of stageOneEvolutions">
+      <a [routerLink]="['/pokadex/', pokemon.name]" class="img-container">
+        <img
+          class="evolution-img"
+          [src]="
+            '/assets/images/pokemon/official-artwork/' + pokemon.id + '.png'
+          "
+          [alt]="'Picture of ' + pokemon.name"
+        />
+      </a>
+      <p class="evolution-name">{{ pokemon.name }}</p>
+    </div>
+  </div>
+
+  <!-- Arrows and Evolution Details -->
+  <div class="col-sm-1 arrow" *ngIf="stageTwoEvolutions.length > 0">
+    <i class="bi-arrow-right"></i>
+  </div>
+
+  <!-- Second Stage -->
+  <div class="col-sm-2 evolution-stage" *ngIf="stageTwoEvolutions.length > 0">
+    <div class="second-stage" *ngFor="let pokemon of stageTwoEvolutions">
+      <a [routerLink]="['/pokadex/', pokemon.name]" class="img-container">
+        <img
+          class="evolution-img"
+          [src]="
+            '/assets/images/pokemon/official-artwork/' + pokemon.id + '.png'
+          "
+          [alt]="'Picture of ' + pokemon.name"
+        />
+      </a>
+      <p class="evolution-name">{{ pokemon.name }}</p>
+      <p class="evolution-detail" *ngFor="let detail of pokemon.details">
+        {{ detail.detailName }}: {{ detail.detailValue }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Arrows and Evolution Details -->
+  <div class="col-sm-1 arrow" *ngIf="stageThreeEvolutions.length > 0">
+    <i class="bi-arrow-right"></i>
+  </div>
+
+  <!-- Third Stage -->
+  <div class="col-sm-2 evolution-stage" *ngIf="stageThreeEvolutions.length > 0">
+    <div class="third-stage" *ngFor="let pokemon of stageThreeEvolutions">
+      <a [routerLink]="['/pokadex/', pokemon.name]" class="img-container">
+        <img
+          class="evolution-img"
+          [src]="
+            '/assets/images/pokemon/official-artwork/' + pokemon.id + '.png'
+          "
+          [alt]="'Picture of ' + pokemon.name"
+        />
+      </a>
+      <p class="evolution-name">{{ pokemon.name }}</p>
+      <p class="evolution-detail" *ngFor="let detail of pokemon.details">
+        {{ detail.detailName }}: {{ detail.detailValue }}
+      </p>
+    </div>
+  </div>
+</div>

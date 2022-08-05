@@ -1,24 +1,6 @@
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-
-$normal: $gray-200;
-$fighting: $orange-400;
-$flying: $cyan-200;
-$poison: $purple-400;
-$ground: $orange-600;
-$rock: $yellow-700;
-$bug: #729f3f;
-$ghost: $purple-600;
-$steel: $gray-500;
-$fire: $red-400;
-$water: $blue-500;
-$grass: $green-400;
-$electric: $yellow-500;
-$psychic: $pink-500;
-$ice: $cyan-500;
-$dragon: $blue-600;
-$dark: $indigo-800;
-$fairy: $pink-300;
+@import "../../shared/type-colors";
 
 * {
   text-transform: capitalize;

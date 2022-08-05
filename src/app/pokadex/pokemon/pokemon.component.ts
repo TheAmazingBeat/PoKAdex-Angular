@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import {
   Pokemon,
   PokemonAbility,
@@ -7,7 +7,6 @@ import {
   PokemonStat,
   PokemonType,
 } from 'pokenode-ts';
-import { PokadexService } from '../pokadex.service';
 import { PokemonService } from './pokemon.service';
 
 @Component({
@@ -31,7 +30,14 @@ export class PokemonComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.name = this.route.snapshot.params['name'];
+    this.route.params.subscribe(async (params: Params) => {
+      this.name = params['name'];
+      this.render();
+    });
+    this.render();
+  }
+
+  async render() {
     this.species = await this.pokemonService.getSpecies(this.name);
     this.id = this.species.id;
     this.pokemon = await this.pokemonService.getPokemon(this.id);
@@ -39,7 +45,5 @@ export class PokemonComponent implements OnInit {
     const ID_INDEX = 42;
     const chainURL = this.species.evolution_chain.url;
     this.chainID = +chainURL.substring(ID_INDEX, chainURL.length - 1);
-    // console.log(this.pokemon);
-    // console.log(this.species);
   }
 }

@@ -1,47 +1,59 @@
 <div class="heading">
   <h2>Damage Taken</h2>
 </div>
-<table *ngIf="typesList != undefined" class="type-chart">
-  <tbody>
-    <tr>
-      <th *ngFor="let type of typesList.slice(0, 9)" scope="col">
-        <app-type-badge [type]="type"></app-type-badge>
-      </th>
-    </tr>
-    <tr>
-      <td
-        class="text-center damage"
-        *ngFor="let type of damageTaken.slice(0, 9)"
-        [ngClass]="{
-          normal: type.damage === '1',
-          weak: type.damage === '2',
-          'very-weak': type.damage === '4',
-          strong: type.damage === '1/2',
-          'very-strong': type.damage === '1/4'
-        }"
-      >
-        {{ type.damage }}
-      </td>
-    </tr>
-    <tr>
-      <th *ngFor="let type of typesList.slice(9, 18)" scope="col">
-        <app-type-badge [type]="type"></app-type-badge>
-      </th>
-    </tr>
-    <tr>
-      <td
-        class="text-center damage"
-        *ngFor="let type of damageTaken.slice(9, 18)"
-        [ngClass]="{
-          normal: type.damage === '1',
-          weak: type.damage === '2',
-          'very-weak': type.damage === '4',
-          strong: type.damage === '1/2',
-          'very-strong': type.damage === '1/4'
-        }"
-      >
-        {{ type.damage }}
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table *ngIf="typesList != undefined" class="type-chart">
+    <tbody>
+      <tr>
+        <th *ngFor="let type of typesList.slice(0, 9)" scope="col">
+          <app-type-badge [type]="type"></app-type-badge>
+        </th>
+      </tr>
+      <tr>
+        <td
+          class="text-center damage"
+          *ngFor="let type of damageTaken.slice(0, 9)"
+          [ngClass]="{
+            normal: type.damage === '1',
+            weak: type.damage === '2',
+            'very-weak': type.damage === '4',
+            resistant: type.damage === '1/2',
+            'very-resistant': type.damage === '1/4',
+            'no-effect': type.damage === '0'
+          }"
+        >
+          <p *ngIf="type.damage === '1/4'" [innerHTML]="'&frac14;'"></p>
+          <p *ngIf="type.damage === '1/2'" [innerHTML]="'&frac12;'"></p>
+          <p *ngIf="type.damage != '1/4' && type.damage != '1/2'">
+            {{ type.damage }}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <th *ngFor="let type of typesList.slice(9, 18)" scope="col">
+          <app-type-badge [type]="type"></app-type-badge>
+        </th>
+      </tr>
+      <tr>
+        <td
+          class="text-center damage"
+          *ngFor="let type of damageTaken.slice(9, 18)"
+          [ngClass]="{
+            normal: type.damage === '1',
+            weak: type.damage === '2',
+            'very-weak': type.damage === '4',
+            resistant: type.damage === '1/2',
+            'very-resistant': type.damage === '1/4',
+            'no-effect': type.damage === '0'
+          }"
+        >
+          <p *ngIf="type.damage === '1/4'" [innerHTML]="'&frac14;'"></p>
+          <p *ngIf="type.damage === '1/2'" [innerHTML]="'&frac12;'"></p>
+          <p *ngIf="type.damage != '1/4' && type.damage != '1/2'">
+            {{ type.damage }}
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

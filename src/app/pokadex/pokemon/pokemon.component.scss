@@ -12,18 +12,27 @@
 }
 
 .nav-link {
-  color: $red;
-
+  // color: $red;
+  color: $white;
+  
   &.active {
     background-color: $red;
     color: $white;
   }
 }
 
+a {
+  text-decoration: none;
+}
+
+.sticky-top {
+  top: 61px;
+}
+
+.nav-item{
+  background-color: $red-400;
+}
+
 // *{
 //   outline: 1px solid red;
 // }
-
-*{
-  text-transform: capitalize;
-}

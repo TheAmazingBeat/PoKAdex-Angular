@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
   NamedAPIResource,
-  NamedAPIResourceList,
   Pokemon,
-  PokemonType,
   TypeRelations,
 } from 'pokenode-ts';
 import { PokemonService } from '../pokemon.service';
@@ -49,19 +47,20 @@ export class PokemonTypeChartComponent implements OnInit {
     this.typesList = await this.pokemonService.listAllTypes();
     this.typeOfPokemon = this.pokemon.types.map((entry) => entry.type.name);
     // Gets the damage_relations for each type
-    for (const type of this.typeOfPokemon) {
-      this.relations.push(
-        await (
-          await this.pokemonService.getType(type)
-        ).damage_relations
-      );
-    }
-    this.getDamageTaken();
+    this.relations = await Promise.all(
+      this.typeOfPokemon.map(
+        async (type) =>
+          await (
+            await this.pokemonService.getType(type)
+          ).damage_relations
+      )
+    );
+    this.damageTaken = this.getDamageTaken(this.typesList);
   }
 
-  getDamageTaken() {
-    // Iterate over each type
-    for (const typeEntry of this.typesList) {
+  getDamageTaken(typeList: NamedAPIResource[]) {
+    const damageTaken: TypeDamage[] = typeList.map((typeEntry) => {
+      // Iterate over each type
       let damage = '1';
       const typeOne = this.relations[0];
       const typeTwo = this.relations[1];
@@ -114,7 +113,8 @@ export class PokemonTypeChartComponent implements OnInit {
         else damage = '2';
       } else damage = '1';
 
-      this.damageTaken.push(new TypeDamage(typeEntry.name, damage));
-    }
+      return new TypeDamage(typeEntry.name, damage);
+    });
+    return damageTaken;
   }
 }
